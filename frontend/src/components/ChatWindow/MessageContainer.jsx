@@ -8,7 +8,7 @@ const MessageContainer = ({ chatId, socket }) => {
     const [loading, setLoading] = useState(true);
     const scrollRef = useRef(null);
 
-    // ... (Logic is identical to previous versions)
+    // ... (Logic is identical)
     useEffect(() => {
         setMessages([]);
         const fetchMessages = async () => {
@@ -34,17 +34,15 @@ const MessageContainer = ({ chatId, socket }) => {
     }, [socket, chatId]);
 
     useEffect(() => {
-        scrollRef.current?.scrollIntoView({ behavior: 'smooth' });
+        scrollRef.current?.scrollIntoView({ behavior: 'auto' });
     }, [messages]);
 
     if (loading) return <div className="flex justify-center items-center h-full"><Spinner /></div>;
 
     return (
-        <div className="flex-grow p-4 md:p-6 lg:p-8 overflow-y-auto bg-chat-bg">
+        <div className="flex-grow p-4 md:p-6 lg:p-8 overflow-y-auto bg-chat-pattern">
             {messages.map(msg => (
-                <div key={msg._id || Date.now()}>
-                    <Message message={msg} />
-                </div>
+                <Message key={msg._id || Date.now()} message={msg} />
             ))}
             <div ref={scrollRef} />
         </div>

@@ -9,16 +9,16 @@ const ChatHeader = ({ chat }) => {
     if (!chatPartner) return null;
 
     return (
-        <header className="flex items-center p-4 bg-header-bg border-b border-divider-light shadow-sm">
+        <header className="flex items-center p-4 bg-gray-800 border-b border-gray-700 shadow-sm flex-shrink-0">
             <Avatar user={chatPartner} size="sm" />
             <div className="flex-grow ml-4">
-                <span className="font-semibold text-text-dark">{chatPartner.displayName}</span>
-                {/* Optional: Add online status here */}
+                <span className="font-semibold text-white">{chatPartner.displayName}</span>
+                <p className="text-xs text-green-400">Online</p>
             </div>
-            <div className="flex items-center gap-2 text-text-secondary">
-                <button className="p-2 rounded-full hover:bg-gray-100"><FiSearch size={20} /></button>
-                <button className="p-2 rounded-full hover:bg-gray-100"><FiPhone size={20} /></button>
-                <button className="p-2 rounded-full hover:bg-gray-100"><FiMoreVertical size={20} /></button>
+            <div className="flex items-center gap-2 text-gray-400">
+                <button className="p-2 rounded-full hover:bg-gray-700 hover:text-white transition-colors"><FiPhone size={20} /></button>
+                <button className="p-2 rounded-full hover:bg-gray-700 hover:text-white transition-colors"><FiSearch size={20} /></button>
+                <button className="p-2 rounded-full hover:bg-gray-700 hover:text-white transition-colors"><FiMoreVertical size={20} /></button>
             </div>
         </header>
     );

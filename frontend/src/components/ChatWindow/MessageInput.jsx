@@ -20,18 +20,23 @@ const MessageInput = ({ chatId, socket }) => {
     };
 
     return (
-        <div className="p-4 bg-header-bg border-t border-divider-light">
+        <div className="p-4 bg-gray-800 border-t border-gray-700 flex-shrink-0">
             <form className="flex items-center gap-4" onSubmit={handleSubmit}>
-                <button type="button" className="text-text-secondary hover:text-accent"><FiSmile size={22} /></button>
-                <button type="button" className="text-text-secondary hover:text-accent"><FiPaperclip size={22} /></button>
+                {/* Future feature buttons */}
+                <button type="button" className="text-gray-400 hover:text-blue-500 transition-colors"><FiSmile size={22} /></button>
+                <button type="button" className="text-gray-400 hover:text-blue-500 transition-colors"><FiPaperclip size={22} /></button>
                 <input
                     type="text"
                     placeholder="Type a message..."
                     value={content}
                     onChange={(e) => setContent(e.target.value)}
-                    className="flex-grow bg-gray-100 py-2 px-4 rounded-full text-sm focus:outline-none focus:ring-2 focus:ring-accent"
+                    className="flex-grow bg-gray-900 py-3 px-5 rounded-full text-sm text-gray-200 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
-                <button type="submit" className="bg-accent text-white p-2.5 rounded-full flex items-center justify-center hover:bg-accent-hover transition">
+                <button
+                    type="submit"
+                    className="bg-blue-600 text-white p-3 rounded-full flex items-center justify-center hover:bg-blue-700 transition-colors disabled:bg-gray-600 disabled:cursor-not-allowed"
+                    disabled={!content.trim()}
+                >
                     <IoSend size={18} />
                 </button>
             </form>

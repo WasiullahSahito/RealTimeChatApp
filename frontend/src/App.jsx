@@ -6,8 +6,8 @@ import ProtectedRoute from './components/common/ProtectedRoute';
 
 function App() {
   return (
-    // The main container now takes the full screen
-    <div className="w-screen h-screen bg-chat-bg text-text-dark">
+    // The main container now takes the full screen with a dark background
+    <div className="w-screen h-screen bg-gray-900 text-gray-200 font-sans">
       <div className="h-full w-full flex">
         <Routes>
           <Route path="/" element={<LoginPage />} />
