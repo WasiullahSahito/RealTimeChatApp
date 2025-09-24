@@ -16,6 +16,24 @@ const ChatListItem = ({ chat, onSelectChat, isActive }) => {
         return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true });
     };
 
+    // --- FIX: Display user-friendly text for media messages ---
+    const renderLatestMessage = () => {
+        if (!chat.latestMessage) {
+            return "No messages yet";
+        }
+        switch (chat.latestMessage.type) {
+            case 'image':
+                return '📷 Photo';
+            case 'video':
+                return '📹 Video';
+            case 'audio':
+                return '🎵 Audio';
+            default:
+                // For text messages, show the content
+                return chat.latestMessage.content;
+        }
+    };
+
     return (
         <li
             className={`flex items-center p-4 cursor-pointer transition-colors duration-200 border-b border-gray-700/50 ${activeClass}`}
@@ -30,7 +48,7 @@ const ChatListItem = ({ chat, onSelectChat, isActive }) => {
                     </span>
                 </div>
                 <p className="text-sm text-gray-400 truncate">
-                    {chat.latestMessage ? chat.latestMessage.content : "No messages yet"}
+                    {renderLatestMessage()}
                 </p>
             </div>
         </li>

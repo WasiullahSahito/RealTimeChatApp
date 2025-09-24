@@ -1,4 +1,4 @@
-// (The logic remains the same, only the container class changes)
+// pages/ChatPage.jsx
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { io } from 'socket.io-client';
@@ -13,7 +13,7 @@ const ChatPage = () => {
     const [socket, setSocket] = useState(null);
     const { currentUser } = useAuth();
 
-    // ... (All logic from the previous answer remains identical)
+    // ... (useEffect for socket connection and addUser remains the same)
     useEffect(() => {
         const newSocket = io(import.meta.env.VITE_API_URL);
         setSocket(newSocket);
@@ -25,6 +25,7 @@ const ChatPage = () => {
             socket.emit('addUser', currentUser.id);
         }
     }, [socket, currentUser]);
+
 
     useEffect(() => {
         const fetchChats = async () => {
@@ -40,6 +41,7 @@ const ChatPage = () => {
     useEffect(() => {
         if (!socket) return;
         const handleReceiveMessage = (message) => {
+            // This listener updates the chat list for real-time message previews
             setChats(prevChats => {
                 const updatedChats = prevChats.map(chat =>
                     chat._id === message.chatId
@@ -50,7 +52,14 @@ const ChatPage = () => {
             });
         };
         socket.on('receiveMessage', handleReceiveMessage);
-        return () => socket.off('receiveMessage', handleReceiveMessage);
+
+        // This is a more explicit event for just updating the list, especially useful if the receiver isn't in the active chat
+        socket.on('updateChatList', handleReceiveMessage);
+
+        return () => {
+            socket.off('receiveMessage', handleReceiveMessage);
+            socket.off('updateChatList', handleReceiveMessage);
+        }
     }, [socket]);
 
     const handleSelectChat = (chat) => {
